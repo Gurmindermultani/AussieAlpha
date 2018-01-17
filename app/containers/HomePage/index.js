@@ -18,7 +18,12 @@ import classNames from 'classnames';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectRepos, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
+
+
+
 import H2 from 'components/H2';
+import PostInput from 'components/PostInput';
+import PostCard from 'components/PostCard';
 import ReposList from 'components/ReposList';
 import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
@@ -31,36 +36,43 @@ import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+
+
+
 import TextField from 'material-ui/TextField';
 import Avatar from 'material-ui/Avatar';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
+import List, { ListItem, ListItemText } from 'material-ui/List';
+import Divider from 'material-ui/Divider';
+import FolderIcon from 'material-ui-icons/Folder';
+import ImageIcon from 'material-ui-icons/Image';
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    marginTop: 16,
-    marginBottom: 16,
-    marginLeft: 100,
-    marginRight: 100,
+    marginTop: 75,
+    marginBottom: 75,
+    marginLeft: '10%',
+    marginRight: '10%',
   },
   paper: {
-    padding: 16,
-    textAlign: 'center',
+    padding: 10,
     color: theme.palette.text.secondary,
   },
   postInputPaper: {
-    padding: 16,
+    padding: 10,
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    backgroundColor : "#F5F8FA",
+    backgroundColor : "#E9F5FD",
     borderBottom : "1px solid #E6ECF0",
   },
   postGrid : {
     borderBottom : "1px solid #E6ECF0",
   },
   postpaper: {
-    padding: 16,
+    padding: 10,
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
@@ -71,17 +83,16 @@ const styles = theme => ({
     width: 60,
     height: 60,
   },
-  portfolio : {
-    marginTop : 15
-  },
   card: {
     maxWidth: 345,
   },
   media: {
     height: 200,
   },
-  overflow : {
-    overflow: 'hidden'
+  rootList: {
+    width: '100%',
+    maxWidth: '360px',
+    backgroundColor: theme.palette.background.paper,
   }
 });
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -111,135 +122,37 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         <div className={classes.root}>
           <Grid container spacing={16}>
             <Grid item xs={6} sm={3}>
-              <Grid item xs={12}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.media}
-                    image="https://material-ui-next.com/static/images/cards/contemplative-reptile.jpg"
-                    title="Contemplative Reptile"
-                  />
-                  <CardContent>
-                    <Typography type="headline" component="h2">
-                      Lizard
-                    </Typography>
-                    <Typography component="p">
-                      Summary About User
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid className={classes.portfolio} item xs={12}>
+              <Grid className={classes.portfolio} item xs={12} sm={12}>
                 <Paper className={classes.paper}>
-                  <Typography component="p">
-                      Portfolio Summary
-                    </Typography>
+                  Tickers
                   <img src={require('./portfolio.png')} />
                 </Paper>
               </Grid>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Paper elevation={0} className={classes.postInputPaper}>
-                <TextField
-                  id="full-width"
-                  label="Hello Lizard, Welcome to AussieAlpha"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  placeholder="What's on your mind?"
-                  fullWidth
-                  margin="normal"
-                />
+                <PostInput />
               </Paper>
-              <Paper elevation={0} className={classes.postpaper}>
-                <Grid className={classes.postGrid} container spacing={24}>
-                  <Grid item xs={3}>
-                    <Avatar
-                      alt="Adelle Charles"
-                      src="https://material-ui-next.com/static/images/uxceo-128.jpg"
-                      className={classNames(classes.avatar, classes.bigAvatar)}
-                    />
-                  </Grid>
-                  <Grid item xs={9}>
-                    Here the post of Users Will Come and the users can comment and Like.
-                  </Grid>
-                </Grid>
-                <Grid className={classes.postGrid} container spacing={24}>
-                  <Grid item xs={3}>
-                    <Avatar
-                      alt="Adelle Charles"
-                      src="https://pbs.twimg.com/profile_images/892295415500025856/y9E8PvLe_400x400.jpg"
-                      className={classNames(classes.avatar, classes.bigAvatar)}
-                    />
-                  </Grid>
-                  <Grid item xs={9}>
-                    Demo Comment.
-                  </Grid>
-                </Grid>
-                <Grid className={classes.postGrid} container spacing={24}>
-                  <Grid item xs={3}>
-                    <Avatar
-                      alt="Adelle Charles"
-                      src="https://pbs.twimg.com/profile_images/942784892882112513/qV4xB0I3_400x400.jpg"
-                      className={classNames(classes.avatar, classes.bigAvatar)}
-                    />
-                  </Grid>
-                  <Grid item xs={9}>
-                    Demo Comment.
-                  </Grid>
-                </Grid>
-                <Grid className={classes.postGrid} container spacing={24}>
-                  <Grid item xs={3}>
-                    <Avatar
-                      alt="Adelle Charles"
-                      src="https://pbs.twimg.com/profile_images/925700796598984704/HC-eUKQz_400x400.jpg"
-                      className={classNames(classes.avatar, classes.bigAvatar)}
-                    />
-                  </Grid>
-                  <Grid item xs={9}>
-                    Demo Comment.
-                  </Grid>
-                </Grid>
-                <Grid className={classes.postGrid} container spacing={24}>
-                  <Grid item xs={3}>
-                    <Avatar
-                      alt="Adelle Charles"
-                      src="https://pbs.twimg.com/profile_images/546011298627334146/MAeF2-yK_400x400.jpeg"
-                      className={classNames(classes.avatar, classes.bigAvatar)}
-                    />
-                  </Grid>
-                  <Grid item xs={9}>
-                    Demo Comment.
-                  </Grid>
-                </Grid>
-                <Grid className={classes.postGrid} container spacing={24}>
-                  <Grid item xs={3}>
-                    <Avatar
-                      alt="Adelle Charles"
-                      src="https://pbs.twimg.com/profile_images/426420605945004032/K85ZWV2F_400x400.png"
-                      className={classNames(classes.avatar, classes.bigAvatar)}
-                    />
-                  </Grid>
-                  <Grid item xs={9}>
-                    Demo Comment.
-                  </Grid>
-                </Grid>
-                <Grid className={classes.postGrid} container spacing={24}>
-                  <Grid item xs={3}>
-                    <Avatar
-                      alt="Adelle Charles"
-                      src="https://pbs.twimg.com/profile_images/875453682170576896/KDcOPtgI_400x400.jpg"
-                      className={classNames(classes.avatar, classes.bigAvatar)}
-                    />
-                  </Grid>
-                  <Grid item xs={9}>
-                    Demo Comment.
-                  </Grid>
-                </Grid>
-              </Paper>
+              <PostCard />
             </Grid>
             <Grid item xs={6} sm={3}>
               <Paper className={classNames(classes.paper, classes.overflow)}>
-                <img src={require('./market.png')} />
+                Article Trends For You
+                <List className={classes.rootList}>
+                  <ListItem button>
+                    <Avatar>
+                      <FolderIcon />
+                    </Avatar>
+                    <ListItemText primary="Article on Work" secondary="Jan 28, 2014" />
+                  </ListItem>
+                  <Divider inset />
+                  <ListItem button>
+                    <Avatar>
+                      <ImageIcon />
+                    </Avatar>
+                    <ListItemText primary="Article on Vacation" secondary="Jan 20, 2014" />
+                  </ListItem>
+                </List>
               </Paper>
             </Grid>
           </Grid>

@@ -24,6 +24,14 @@ import Menu, { MenuItem } from 'material-ui/Menu';
 const styles = {
   root: {
     width: '100%',
+    'backface-visibility': 'hidden',
+    'border-bottom': '1px solid rgba(0,0,0,0.05)',
+    position: 'fixed',
+    top: 0,
+    right: 0,
+    left: 0,
+    'z-index': 1000,
+    'background-color' : '#2C98F0'
   },
   flex: {
     flex: 1,
@@ -57,11 +65,14 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
     const open = Boolean(anchorEl);
     return (
       <div className={classes.root}>
-        <AppBar color="primary" position="static">
+        <AppBar className={classes.root} position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
+            {!auth && (
+              <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
+                <MenuIcon />
+              </IconButton>
+              )
+            }
             <Typography type="title" color="inherit" className={classes.flex}>
               AussieAlpha
             </Typography>

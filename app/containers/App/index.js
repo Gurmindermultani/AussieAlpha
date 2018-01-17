@@ -13,6 +13,8 @@ import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
+import LoginPage from 'containers/LoginPage/Loadable';
+import ProfilePage from 'containers/ProfilePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
@@ -27,6 +29,7 @@ const AppWrapper = styled.div`
 `;
 
 export default function App() {
+  const loggedIn = true;
   return (
     <AppWrapper>
       <Helmet
@@ -35,13 +38,19 @@ export default function App() {
       >
         <meta name="description" content="A React.js Boilerplate application" />
       </Helmet>
-      <Header />
+      {loggedIn && 
+          <Header />
+      }
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/features" component={FeaturePage} />
+        <Route path="/login" component={LoginPage} />
+        <Route path="/profile" component={ProfilePage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
-      <Footer />
+      {loggedIn && 
+        <Footer />
+      }
     </AppWrapper>
   );
 }
