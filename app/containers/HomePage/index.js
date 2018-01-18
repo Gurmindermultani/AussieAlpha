@@ -24,6 +24,10 @@ import { makeSelectRepos, makeSelectLoading, makeSelectError } from 'containers/
 import H2 from 'components/H2';
 import PostInput from 'components/PostInput';
 import PostCard from 'components/PostCard';
+import Ticker from 'components/Ticker';
+import LineVolumeChart from 'components/LineVolumeChart';
+import { getData } from "./getDataUtil"
+import TrendingStock from 'components/TrendingStock';
 import ReposList from 'components/ReposList';
 import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
@@ -48,6 +52,10 @@ import List, { ListItem, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import FolderIcon from 'material-ui-icons/Folder';
 import ImageIcon from 'material-ui-icons/Image';
+import AddBox from 'material-ui-icons/AddBox';
+import Launch from 'material-ui-icons/Launch';
+import TrendingUp from 'material-ui-icons/TrendingUp';
+import IconButton from 'material-ui/IconButton';
 
 const styles = theme => ({
   root: {
@@ -93,6 +101,24 @@ const styles = theme => ({
     width: '100%',
     maxWidth: '360px',
     backgroundColor: theme.palette.background.paper,
+  },
+  userAvatar: {
+    height : 25,
+    width : 25,
+  },
+  watchlist : {
+    display : 'inline-block',
+    fontSize : '1.2em',
+    lineHeight : '48px'
+  },
+  addButton : {
+    float : 'right'
+  },
+  clearFloat : {
+    clear : 'both'
+  },
+  watchlistIcon : {
+    float : 'left'
   }
 });
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -103,6 +129,9 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     if (this.props.username && this.props.username.trim().length > 0) {
       this.props.onSubmitForm();
     }
+    getData().then(data => {
+      this.setState({ data });
+    })
   }
 
   render() {
@@ -124,8 +153,19 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             <Grid item xs={6} sm={3}>
               <Grid className={classes.portfolio} item xs={12} sm={12}>
                 <Paper className={classes.paper}>
-                  Tickers
-                  <img src={require('./portfolio.png')} />
+                  <div>
+                    <IconButton className={classes.watchlistIcon}>
+                      <Launch className={classes.userAvatar}/>
+                    </IconButton>
+                    <Typography className={classes.watchlist} align="left" type="title">
+                      Watchlist
+                    </Typography>
+                    <IconButton className={classes.addButton}>
+                      <AddBox className={classes.userAvatar}/>
+                    </IconButton>
+                    <div className={classes.clearFloat}></div>
+                  </div>
+                  <Ticker />
                 </Paper>
               </Grid>
             </Grid>
@@ -136,24 +176,23 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
               <PostCard />
             </Grid>
             <Grid item xs={6} sm={3}>
-              <Paper className={classNames(classes.paper, classes.overflow)}>
-                Article Trends For You
-                <List className={classes.rootList}>
-                  <ListItem button>
-                    <Avatar>
-                      <FolderIcon />
-                    </Avatar>
-                    <ListItemText primary="Article on Work" secondary="Jan 28, 2014" />
-                  </ListItem>
-                  <Divider inset />
-                  <ListItem button>
-                    <Avatar>
-                      <ImageIcon />
-                    </Avatar>
-                    <ListItemText primary="Article on Vacation" secondary="Jan 20, 2014" />
-                  </ListItem>
-                </List>
-              </Paper>
+              <Grid className={classes.portfolio} item xs={12} sm={12}>
+                <Paper className={classes.paper}>
+                  <div>
+                    <IconButton className={classes.watchlistIcon}>
+                      <TrendingUp className={classes.userAvatar}/>
+                    </IconButton>
+                    <Typography className={classes.watchlist} align="left" type="title">
+                      Trending Now
+                    </Typography>
+                    <div className={classes.clearFloat}></div>
+                  </div>
+                  <TrendingStock/>
+                  {this.state && this.state.data && (
+                    <LineVolumeChart data={this.state.data} />
+                  )}
+                </Paper>
+              </Grid>
             </Grid>
           </Grid>
         </div>
