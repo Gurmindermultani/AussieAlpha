@@ -31,15 +31,37 @@ const styles = {
     right: 0,
     left: 0,
     'z-index': 1000,
-    'background-color' : '#2C98F0'
+    'background-color' : '#2C98F0',
+    display : 'flex',
+    'justify-content' : 'flex-start'
   },
-  flex: {
-    flex: 1,
+  heading: {
+    'marginLeft' : 10,
+    fontWeight : 'bold',
+    cursor : 'pointer',
+    '&:hover' : {
+      color : '#E6ECF0'
+    }
+  },
+  subheading : {
+    marginLeft : 10,
+    marginTop : 4,
+    cursor : 'pointer',
+    '&:hover' : {
+      color : '#E6ECF0'
+    }
   },
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
   },
+  IconButton : {
+    'marginLeft': '76%',
+  },
+  userAvatar : {
+    width : 30,
+    height : 30
+  }
 };
 
 class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -73,18 +95,24 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
               </IconButton>
               )
             }
-            <Typography type="title" color="inherit" className={classes.flex}>
+            <Typography type="headline" color="inherit" className={classes.heading}>
               AussieAlpha
             </Typography>
+            <Typography type="subheading" color="inherit" className={classes.subheading}>
+              Stream
+            </Typography>
+            <Typography type="subheading" color="inherit" className={classes.subheading}>
+              Portfolio
+            </Typography>
             {auth && (
-              <div>
+              <div className={classes.IconButton}>
                 <IconButton
                   aria-owns={open ? 'menu-appbar' : null}
                   aria-haspopup="true"
                   onClick={this.handleMenu}
                   color="contrast"
                 >
-                  <AccountCircle />
+                  <AccountCircle className={classes.userAvatar}/>
                 </IconButton>
                 <Menu
                   id="menu-appbar"
@@ -101,7 +129,7 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
                   onClose={this.handleClose}
                 >
                   <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  <MenuItem onClick={this.handleClose}>Settings</MenuItem>
                 </Menu>
               </div>
             )}

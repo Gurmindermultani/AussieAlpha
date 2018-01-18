@@ -10,7 +10,7 @@ function Footer() {
   return (
     <Wrapper>
       <section>
-        <FormattedMessage {...messages.licenseMessage} />
+        AussieAlpha
       </section>
       <section>
         <LocaleToggle />
@@ -19,7 +19,7 @@ function Footer() {
         <FormattedMessage
           {...messages.authorMessage}
           values={{
-            author: <A href="https://www.linkedin.com/in/gurminder-multani-61a04577/">Gurminder</A>,
+            author: <A target="_blank" href="https://www.linkedin.com/in/gurminder-multani-61a04577/">Gurminder</A>,
           }}
         />
       </section>

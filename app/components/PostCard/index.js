@@ -13,6 +13,10 @@ import CommentIcon from 'material-ui-icons/ChatBubbleOutline';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 
+import { getData } from "./getDataUtil"
+import MovingAverage from "components/MovingAverage"
+
+
 const styles = theme => ({
   card: {
     maxWidth: 1000,
@@ -38,6 +42,11 @@ const styles = theme => ({
   },
   spaceBetweenIcons : {
     width : 20
+  },
+  chartContainer : {
+    border : "1px solid #E6ECF0",
+    margin : 10,
+    borderRadius : 4
   }
 });
 
@@ -48,11 +57,77 @@ class PostCard extends React.Component {
     this.setState({ expanded: !this.state.expanded });
   };
 
+  componentDidMount(){
+    getData().then(data => {
+      this.setState({ data });
+    });
+  }
+
   render() {
     const { classes } = this.props;
 
     return (
       <div>
+        <Card elevation={0} className={classes.card}>
+          <CardHeader
+            avatar={
+              <Avatar aria-label="Recipe" className={classes.avatar}>
+                G
+              </Avatar>
+            }
+            action={
+              <IconButton>
+                <MoreVertIcon />
+              </IconButton>
+            }
+            title="Moving Average of Stocks"
+            subheader="September 14, 2016"
+          />
+          <div className={classes.chartContainer}>
+            {this.state && this.state.data && (
+              <MovingAverage data={this.state.data} />
+            )}
+          </div>
+          <CardContent>
+            <Typography component="p">
+              This is the comparison of moving averages of different stocks that are trending.
+            </Typography>
+          </CardContent>
+          <CardActions disableActionSpacing>
+            <IconButton aria-label="Add to favorites">
+              <FavoriteIcon />
+            </IconButton>
+            20
+            <div className={classes.spaceBetweenIcons} />
+
+            <IconButton
+              onClick={this.handleExpandClick}
+              aria-expanded={this.state.expanded}
+              aria-label="Show more"
+            >
+              <CommentIcon />
+            </IconButton>
+            10
+            <div className={classes.flexGrow} />
+            <IconButton
+              className={classnames(classes.expand, {
+                [classes.expandOpen]: this.state.expanded,
+              })}
+              onClick={this.handleExpandClick}
+              aria-expanded={this.state.expanded}
+              aria-label="Show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          </CardActions>
+          <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Typography paragraph type="body2">
+                Comments Component will come here.
+              </Typography>
+            </CardContent>
+          </Collapse>
+        </Card>
         <Card elevation={0} className={classes.card}>
           <CardHeader
             avatar={
