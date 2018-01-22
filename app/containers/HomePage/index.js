@@ -60,7 +60,6 @@ import IconButton from 'material-ui/IconButton';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    marginTop: 75,
     marginBottom: 75,
     marginLeft: '10%',
     marginRight: '10%',

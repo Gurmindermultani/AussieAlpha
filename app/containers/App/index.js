@@ -15,6 +15,8 @@ import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import ProfilePage from 'containers/ProfilePage/Loadable';
+import Stream from 'containers/Stream/Loadable';
+import Portfolio from 'containers/Portfolio/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
@@ -26,6 +28,7 @@ const AppWrapper = styled.div`
   min-height: 100%;
   padding: 0 0px;
   flex-direction: column;
+  padding-top : 80px
 `;
 
 export default function App() {
@@ -46,6 +49,8 @@ export default function App() {
         <Route path="/features" component={FeaturePage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/profile" component={ProfilePage} />
+        <Route path="/portfolio" component={Portfolio} />
+        <Route path="/stream" component={Stream} />
         <Route path="" component={NotFoundPage} />
       </Switch>
       {loggedIn && 

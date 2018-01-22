@@ -34,6 +34,11 @@ import { makeSelectUsername } from './selectors';
 
 import PostInput from 'components/PostInput';
 import PostCard from 'components/PostCard';
+import Ticker from 'components/Ticker';
+import AddBox from 'material-ui-icons/AddBox';
+import Launch from 'material-ui-icons/Launch';
+import TrendingUp from 'material-ui-icons/TrendingUp';
+import IconButton from 'material-ui/IconButton';
 
 
 import reducer from './reducer';
@@ -85,8 +90,24 @@ const styles = theme => ({
   card: {
     maxWidth: 345,
   },
+  userAvatar: {
+    height : 25,
+    width : 25,
+  },
+  watchlist : {
+    display : 'inline-block',
+    fontSize : '1.2em',
+    lineHeight : '48px'
+  },
+  addButton : {
+    float : 'right'
+  },
   media: {
     height: 200,
+  },
+  streamImage : {
+    width: '548px',
+    height: '300px'
   },
   rootList: {
     width: '100%',
@@ -97,7 +118,7 @@ const styles = theme => ({
     marginTop: 10
   }
 });
-export class ProfilePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class Stream extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
    * when initial state username is not null, submit the form to load repos
    */
@@ -119,7 +140,7 @@ export class ProfilePage extends React.PureComponent { // eslint-disable-line re
       <article>
         <Helmet>
           <title>Profile Page</title>
-          <meta name="description" content="A React.js Boilerplate application ProfilePage" />
+          <meta name="description" content="A React.js Boilerplate application Stream" />
         </Helmet>
         <div className={classes.root}>
           <Grid container spacing={16}>
@@ -136,33 +157,32 @@ export class ProfilePage extends React.PureComponent { // eslint-disable-line re
                       Lizard
                     </Typography>
                     <Typography component="p">
-                      Welcome Lizard to your profile page. You can make various types of changes here.
+                      Welcome Lizard to your Strean Page. here you can chat about the trending tickers.
                     </Typography>
                   </CardContent>
                 </Card>
               </Grid>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <PostCard />
+              <Paper className={classes.paper}>
+                <img className={classes.streamImage} src={require('./stream.png')} />
+              </Paper>
             </Grid>
             <Grid item xs={6} sm={3}>
-              <Paper className={classNames(classes.paper, classes.overflow)}>
-                Who to Follow
-                <List className={classes.rootList}>
-                  <ListItem button>
-                    <Avatar alt="Remy Sharp" src="https://material-ui-next.com/static/images/remy.jpg" className={classes.avatar} />
-                    <ListItemText primary="Demo User" secondary="@demoUser" />
-                  </ListItem>
-                  <Divider inset />
-                  <ListItem button>
-                    <Avatar alt="Remy Sharp" src="https://material-ui-next.com/static/images/remy.jpg" className={classes.avatar} />
-                    <ListItemText primary="Demo User" secondary="@demoUser" />
-                  </ListItem>
-                </List>
-              </Paper>
-              <Paper className={classNames(classes.paper, classes.followingPaper)}>
-                Follow Statistics ?
-              </Paper>
+              <Grid className={classes.portfolio} item xs={12} sm={12}>
+                <Paper className={classes.paper}>
+                  <div>
+                    <IconButton className={classes.watchlistIcon}>
+                      <Launch className={classes.userAvatar}/>
+                    </IconButton>
+                    <Typography className={classes.watchlist} align="left" type="title">
+                      Trending
+                    </Typography>
+                    <div className={classes.clearFloat}></div>
+                  </div>
+                  <Ticker />
+                </Paper>
+              </Grid>
             </Grid>
           </Grid>
         </div>
@@ -171,7 +191,7 @@ export class ProfilePage extends React.PureComponent { // eslint-disable-line re
   }
 }
 
-ProfilePage.propTypes = {
+Stream.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([
     PropTypes.object,
@@ -214,4 +234,4 @@ export default compose(
   withSaga,
   withConnect,
   withStyles(styles),
-)(ProfilePage);
+)(Stream);

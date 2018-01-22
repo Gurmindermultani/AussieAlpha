@@ -1,5 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
+
 
 import A from './A';
 import Img from './Img';
@@ -7,6 +9,8 @@ import NavBar from './NavBar';
 import HeaderLink from './HeaderLink';
 import Banner from './banner.jpg';
 import messages from './messages';
+
+
 
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
@@ -39,12 +43,14 @@ const styles = {
     'marginLeft' : 10,
     fontWeight : 'bold',
     cursor : 'pointer',
+    color : 'white',
     '&:hover' : {
       color : '#E6ECF0'
     }
   },
   subheading : {
     marginLeft : 10,
+    color : 'white',
     marginTop : 4,
     cursor : 'pointer',
     '&:hover' : {
@@ -95,15 +101,21 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
               </IconButton>
               )
             }
-            <Typography type="headline" color="inherit" className={classes.heading}>
-              AussieAlpha
-            </Typography>
-            <Typography type="subheading" color="inherit" className={classes.subheading}>
-              Stream
-            </Typography>
-            <Typography type="subheading" color="inherit" className={classes.subheading}>
-              Portfolio
-            </Typography>
+            <Link to="/">
+              <Typography type="headline" color="inherit" className={classes.heading}>
+                AussieAlpha
+              </Typography>
+            </Link>
+            <Link to="/stream">
+              <Typography type="subheading" color="inherit" className={classes.subheading}>
+                Stream
+              </Typography>
+            </Link>
+            <Link to="/portfolio">
+              <Typography type="subheading" color="inherit" className={classes.subheading}>
+                Portfolio
+              </Typography>
+            </Link>
             {auth && (
               <div className={classes.IconButton}>
                 <IconButton
@@ -128,7 +140,11 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                  <Link to="/profile">
+                    <MenuItem onClick={this.handleClose}>
+                      Profile
+                    </MenuItem>
+                  </Link>
                   <MenuItem onClick={this.handleClose}>Settings</MenuItem>
                 </Menu>
               </div>
