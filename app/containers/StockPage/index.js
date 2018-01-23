@@ -115,7 +115,11 @@ const styles = theme => ({
   },
   followingPaper: {
     marginTop: 10
-  }
+  },
+  streamImage : {
+    width: '548px',
+    height: '600px'
+  },
 });
 export class StockPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
@@ -151,28 +155,6 @@ export class StockPage extends React.PureComponent { // eslint-disable-line reac
                 <Paper className={classes.paper}>
                   <div>
                     <IconButton className={classes.watchlistIcon}>
-                      <TrendingUp className={classes.userAvatar}/>
-                    </IconButton>
-                    <Typography className={classes.watchlist} align="left" type="title">
-                      Current Selected Stock
-                    </Typography>
-                    <div className={classes.clearFloat}></div>
-                  </div>
-                  <TrendingStock/>
-                  {this.state && this.state.data && (
-                    <LineVolumeChart data={this.state.data} />
-                  )}
-                </Paper>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <PostCard />
-            </Grid>
-            <Grid item xs={6} sm={3}>
-              <Grid className={classes.portfolio} item xs={12} sm={12}>
-                <Paper className={classes.paper}>
-                  <div>
-                    <IconButton className={classes.watchlistIcon}>
                       <Launch className={classes.userAvatar}/>
                     </IconButton>
                     <Typography className={classes.watchlist} align="left" type="title">
@@ -181,6 +163,30 @@ export class StockPage extends React.PureComponent { // eslint-disable-line reac
                     <div className={classes.clearFloat}></div>
                   </div>
                   <Ticker />
+                </Paper>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Paper className={classes.paper}>
+                <img className={classes.streamImage} src={require('./stockPage.png')} />
+              </Paper>
+            </Grid>
+            <Grid item xs={6} sm={3}>
+              <Grid className={classes.portfolio} item xs={12} sm={12}>
+                <Paper className={classes.paper}>
+                  <div>
+                    <IconButton className={classes.watchlistIcon}>
+                      <TrendingUp className={classes.userAvatar}/>
+                    </IconButton>
+                    <Typography className={classes.watchlist} align="left" type="title">
+                      Post Volume
+                    </Typography>
+                    <div className={classes.clearFloat}></div>
+                  </div>
+                  <TrendingStock/>
+                  {this.state && this.state.data && (
+                    <LineVolumeChart data={this.state.data} />
+                  )}
                 </Paper>
               </Grid>
             </Grid>

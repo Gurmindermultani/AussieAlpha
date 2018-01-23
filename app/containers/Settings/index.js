@@ -35,6 +35,8 @@ import { makeSelectUsername } from './selectors';
 import PostInput from 'components/PostInput';
 import PostCard from 'components/PostCard';
 
+import ModeEditIcon from 'material-ui-icons/ModeEdit';
+
 
 import reducer from './reducer';
 import saga from './saga';
@@ -95,7 +97,8 @@ const styles = theme => ({
   },
   paper: theme.mixins.gutters({
     paddingTop: 56,
-    paddingBottom: 56,
+    paddingBottom: 1,
+    marginBottom : 15
   }),
   button: {
     margin: theme.spacing.unit,
@@ -106,10 +109,10 @@ const styles = theme => ({
     marginTop: 100
   },
   signIn: {
-    marginTop : 10
+    marginTop : 30
   },
   firstTextField : {
-    marginTop : 70
+    marginTop : 10
   },
 });
 export class Settings extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -139,11 +142,66 @@ export class Settings extends React.PureComponent { // eslint-disable-line react
         <div className={classes.root}>
           <Grid container spacing={16}>
             <Grid item xs={6} sm={3}>
+              <Grid className={classes.portfolio} item xs={12} sm={12}>
+                <Card className={classes.card}>
+                  <CardMedia
+                    className={classes.media}
+                    image="https://material-ui-next.com/static/images/cards/contemplative-reptile.jpg"
+                    title="Contemplative Reptile"
+                  >
+                    <Button fab mini color="accent" aria-label="edit" className={classes.button}>
+                      <ModeEditIcon />
+                    </Button>
+                  </CardMedia>
+                  <CardContent>
+                    <Typography type="headline" component="h2">
+                      Lizard
+                    </Typography>
+                    <Typography component="p">
+                      Welcome Lizard to your profile page. You can make various types of changes here.
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Paper className={classes.paper} elevation={4}>
                 <Typography type="headline" component="h3">
-                  Settings
+                  General Settings
+                </Typography>
+                <TextField
+                  id="full-width"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  className={classes.firstTextField}
+                  placeholder="Demo Name"
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  id="full-width"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  placeholder="Demo Username"
+                  fullWidth
+                  margin="normal"
+                />
+                <Button raised color="primary" className={classes.button}>
+                  Save
+                </Button>
+                <div className={classes.clearFloat}></div>
+                <div className={classes.social}>
+                  <div id="googleSign"></div>
+                </div>
+              </Paper>
+              <Paper className={classes.paper} elevation={4}>
+                <Typography type="headline" component="h3">
+                  Security Settings
+                </Typography>
+                <Typography className={classes.signIn} component="p">
+                  Change Password
                 </Typography>
                 <TextField
                   id="full-width"
