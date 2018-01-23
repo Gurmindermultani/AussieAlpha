@@ -34,11 +34,6 @@ import { makeSelectUsername } from './selectors';
 
 import PostInput from 'components/PostInput';
 import PostCard from 'components/PostCard';
-import Ticker from 'components/Ticker';
-import AddBox from 'material-ui-icons/AddBox';
-import Launch from 'material-ui-icons/Launch';
-import TrendingUp from 'material-ui-icons/TrendingUp';
-import IconButton from 'material-ui/IconButton';
 
 
 import reducer from './reducer';
@@ -90,18 +85,6 @@ const styles = theme => ({
   card: {
     maxWidth: 345,
   },
-  userAvatar: {
-    height : 25,
-    width : 25,
-  },
-  watchlist : {
-    display : 'inline-block',
-    fontSize : '1.2em',
-    lineHeight : '48px'
-  },
-  addButton : {
-    float : 'right'
-  },
   media: {
     height: 200,
   },
@@ -110,11 +93,26 @@ const styles = theme => ({
     maxWidth: '360px',
     backgroundColor: theme.palette.background.paper,
   },
-  followingPaper: {
-    marginTop: 10
-  }
+  paper: theme.mixins.gutters({
+    paddingTop: 56,
+    paddingBottom: 56,
+  }),
+  button: {
+    margin: theme.spacing.unit,
+    float : 'right'
+  },
+  clearFloat: {
+    clear : 'both',
+    marginTop: 100
+  },
+  signIn: {
+    marginTop : 10
+  },
+  firstTextField : {
+    marginTop : 70
+  },
 });
-export class Portfolio extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class Settings extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
    * when initial state username is not null, submit the form to load repos
    */
@@ -136,47 +134,55 @@ export class Portfolio extends React.PureComponent { // eslint-disable-line reac
       <article>
         <Helmet>
           <title>Profile Page</title>
-          <meta name="description" content="A React.js Boilerplate application Portfolio" />
+          <meta name="description" content="A React.js Boilerplate application Settings" />
         </Helmet>
         <div className={classes.root}>
           <Grid container spacing={16}>
             <Grid item xs={6} sm={3}>
-              <Grid className={classes.portfolio} item xs={12} sm={12}>
-                <Paper className={classes.paper}>
-                  <div>
-                    <IconButton className={classes.watchlistIcon}>
-                      <Launch className={classes.userAvatar}/>
-                    </IconButton>
-                    <Typography className={classes.watchlist} align="left" type="title">
-                      Portfolio
-                    </Typography>
-                    <IconButton className={classes.addButton}>
-                      <AddBox className={classes.userAvatar}/>
-                    </IconButton>
-                    <div className={classes.clearFloat}></div>
-                  </div>
-                  <Ticker />
-                </Paper>
-              </Grid>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <PostCard />
+              <Paper className={classes.paper} elevation={4}>
+                <Typography type="headline" component="h3">
+                  Settings
+                </Typography>
+                <TextField
+                  id="full-width"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  className={classes.firstTextField}
+                  placeholder="Old Password"
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  id="full-width"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  placeholder="New Password"
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  id="full-width"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  placeholder="Confirm New Password"
+                  fullWidth
+                  margin="normal"
+                />
+                <Button raised color="primary" className={classes.button}>
+                  Reset Password
+                </Button>
+                <div className={classes.clearFloat}></div>
+                <div className={classes.social}>
+                  <div id="googleSign"></div>
+                </div>
+              </Paper>
             </Grid>
-            <Grid item xs={6} sm={3}>
-              <Grid className={classes.portfolio} item xs={12} sm={12}>
-                <Paper className={classes.paper}>
-                  <div>
-                    <IconButton className={classes.watchlistIcon}>
-                      <Launch className={classes.userAvatar}/>
-                    </IconButton>
-                    <Typography className={classes.watchlist} align="left" type="title">
-                      Trending
-                    </Typography>
-                    <div className={classes.clearFloat}></div>
-                  </div>
-                  <Ticker />
-                </Paper>
-              </Grid>
+            <Grid item xs={6} sm={3}> 
             </Grid>
           </Grid>
         </div>
@@ -185,7 +191,7 @@ export class Portfolio extends React.PureComponent { // eslint-disable-line reac
   }
 }
 
-Portfolio.propTypes = {
+Settings.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([
     PropTypes.object,
@@ -228,4 +234,4 @@ export default compose(
   withSaga,
   withConnect,
   withStyles(styles),
-)(Portfolio);
+)(Settings);

@@ -40,8 +40,17 @@ function TrendingStock(props) {
     <List className={classes.root}>
       <Divider/>
       <ListItem button>
-        <ListItemText primary="Alphabet Inc Class A" secondary="GOOGL - 17 Jan,2:34PM " />
-      </ListItem>
+          <ListItemText primary="BIDU" secondary="Baidu, Inc." />
+          <ListItemSecondaryAction>
+            <Typography align='center' type="subheading">
+              $ 235.00
+            </Typography>
+            <Typography className={classes.redPercent} type="body1">
+              -5.60 (-0.5%)
+              <ArrowDropDown className={classes.arrowDown} />
+            </Typography>
+          </ListItemSecondaryAction>
+        </ListItem>
     </List>
   );
 }

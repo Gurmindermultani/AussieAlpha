@@ -39,6 +39,9 @@ import AddBox from 'material-ui-icons/AddBox';
 import Launch from 'material-ui-icons/Launch';
 import TrendingUp from 'material-ui-icons/TrendingUp';
 import IconButton from 'material-ui/IconButton';
+import TrendingStock from 'components/TrendingStock';
+import { getData } from "./getDataUtil"
+import LineVolumeChart from 'components/LineVolumeChart';
 
 
 import reducer from './reducer';
@@ -114,7 +117,7 @@ const styles = theme => ({
     marginTop: 10
   }
 });
-export class Portfolio extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class StockPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
    * when initial state username is not null, submit the form to load repos
    */
@@ -122,6 +125,9 @@ export class Portfolio extends React.PureComponent { // eslint-disable-line reac
     if (this.props.username && this.props.username.trim().length > 0) {
       this.props.onSubmitForm();
     }
+    getData().then(data => {
+      this.setState({ data });
+    })
   }
 
   render() {
@@ -136,7 +142,7 @@ export class Portfolio extends React.PureComponent { // eslint-disable-line reac
       <article>
         <Helmet>
           <title>Profile Page</title>
-          <meta name="description" content="A React.js Boilerplate application Portfolio" />
+          <meta name="description" content="A React.js Boilerplate application StockPage" />
         </Helmet>
         <div className={classes.root}>
           <Grid container spacing={16}>
@@ -145,17 +151,17 @@ export class Portfolio extends React.PureComponent { // eslint-disable-line reac
                 <Paper className={classes.paper}>
                   <div>
                     <IconButton className={classes.watchlistIcon}>
-                      <Launch className={classes.userAvatar}/>
+                      <TrendingUp className={classes.userAvatar}/>
                     </IconButton>
                     <Typography className={classes.watchlist} align="left" type="title">
-                      Portfolio
+                      Current Selected Stock
                     </Typography>
-                    <IconButton className={classes.addButton}>
-                      <AddBox className={classes.userAvatar}/>
-                    </IconButton>
                     <div className={classes.clearFloat}></div>
                   </div>
-                  <Ticker />
+                  <TrendingStock/>
+                  {this.state && this.state.data && (
+                    <LineVolumeChart data={this.state.data} />
+                  )}
                 </Paper>
               </Grid>
             </Grid>
@@ -170,7 +176,7 @@ export class Portfolio extends React.PureComponent { // eslint-disable-line reac
                       <Launch className={classes.userAvatar}/>
                     </IconButton>
                     <Typography className={classes.watchlist} align="left" type="title">
-                      Trending
+                      Top Stocks
                     </Typography>
                     <div className={classes.clearFloat}></div>
                   </div>
@@ -185,7 +191,7 @@ export class Portfolio extends React.PureComponent { // eslint-disable-line reac
   }
 }
 
-Portfolio.propTypes = {
+StockPage.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([
     PropTypes.object,
@@ -228,4 +234,4 @@ export default compose(
   withSaga,
   withConnect,
   withStyles(styles),
-)(Portfolio);
+)(StockPage);

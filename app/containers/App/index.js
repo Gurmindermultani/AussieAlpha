@@ -16,7 +16,9 @@ import FeaturePage from 'containers/FeaturePage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import ProfilePage from 'containers/ProfilePage/Loadable';
 import Stream from 'containers/Stream/Loadable';
+import StockPage from 'containers/StockPage/Loadable';
 import Portfolio from 'containers/Portfolio/Loadable';
+import Settings from 'containers/Settings/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
@@ -51,6 +53,8 @@ export default function App() {
         <Route path="/profile" component={ProfilePage} />
         <Route path="/portfolio" component={Portfolio} />
         <Route path="/stream" component={Stream} />
+        <Route path="/stockpage" component={StockPage} />
+        <Route path="/settings" component={Settings} />
         <Route path="" component={NotFoundPage} />
       </Switch>
       {loggedIn && 

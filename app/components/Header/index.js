@@ -145,7 +145,9 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
                       Profile
                     </MenuItem>
                   </Link>
-                  <MenuItem onClick={this.handleClose}>Settings</MenuItem>
+                  <Link to="/settings">
+                    <MenuItem onClick={this.handleClose}>Settings</MenuItem>
+                  </Link>
                 </Menu>
               </div>
             )}
